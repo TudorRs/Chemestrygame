@@ -1,0 +1,419 @@
+<html lang="ro">
+<head>
+  <meta charset="UTF-8" />
+  <title>Chimia în Bucătărie - Joc Interactiv</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: url('https://www.transparenttextures.com/patterns/concrete-wall.png'), linear-gradient(to bottom, #fff9f0, #fce4b3);
+      color: #333;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
+      position: relative;
+      background-repeat: repeat;
+    }
+    h1 {
+      color: #b34700;
+      text-align: center;
+    }
+    .question {
+      margin: 20px 0;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.9);
+      border-left: 5px solid #ff9900;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    button {
+      margin: 10px 5px;
+      padding: 10px 20px;
+      background: #ff9900;
+      border: none;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: transform 0.2s ease;
+    }
+    button:hover {
+      background: #e68a00;
+      transform: scale(1.05);
+    }
+
+
+	.side-button {
+  position: fixed;
+  top: 80%;
+  left: 0;
+  transform: translateY(-50%);
+  background-color: #DAA520;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 0 8px 8px 0;
+  text-decoration: none;
+  font-weight: bold;
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.2);
+  transition: background-color 0.3s;
+}
+
+.side-button:hover {
+  background-color: #A52A2A;
+}
+
+
+.right-button {
+ position: fixed;
+  top: 20%;
+right: 0;
+  transform: translateY(-50%);
+  background-color: #DAA520;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.right-button:hover {
+  background-color: #A52A2A;
+}
+
+.jos-button {
+ position: fixed;
+  top: 80%;
+right: 0;
+  transform: translateY(-50%);
+  background-color: #DAA520;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+
+.jos-button:hover {
+  background-color: #A52A2A;
+}
+
+.sus-button {
+ position: fixed;
+  top: 20%;
+left: 0;
+  transform: translateY(-50%);
+  background-color: #DAA520;
+  color: white;
+  padding: 12px 20px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius: 8px 0 0 8px;
+  box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s;
+}
+
+.sus-button:hover {
+  background-color: #A52A2A;
+}
+
+    #result {
+      font-size: 1.2em;
+      margin-top: 20px;
+      text-align: center;
+    }
+    .score-animation {
+      animation: pop 0.5s ease;
+    }
+    @keyframes pop {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+    .kitchen-bg {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      width: 150px;
+      opacity: 0.4;
+    }
+    .facts-section {
+     margin-top: 80px; /* Mărește spațiul de sus */
+  text-align: center;
+  font-size: 1.3em; /* Mărește fontul */
+  font-weight: bold; /* Mai vizibil */
+    }
+    .fact-button {
+     flex: 1 1 18%; /* Aproximativ 5 butoane pe rând */
+  min-width: 100px;
+  padding: 10px;
+  font-size: 1em;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.2s;
+    }
+
+.fact-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+    .fact-display {
+      margin-top: 20px;
+      background: #f3ffe6;
+      padding: 15px;
+      border-radius: 8px;
+      display: none;
+      transition: all 0.3s ease-in-out;
+    }
+
+.img-stanga-sus {
+ position: fixed;
+  bottom: 10px;
+  left: 10px;
+  width: 600px;
+  z-index: 1;
+}
+
+.img-centru {
+  position: fixed;
+  bottom: 10px;
+  left: 55%;
+  transform: translateX(-50%);
+  width: 600px;
+  z-index: 1;
+
+}
+
+.img-dreapta-jos {
+ position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 400px;
+  z-index: 1;
+}
+  </style>
+</head>
+<body>
+  <h1>🔬 Chimia în Bucătărie - Joc Interactiv</h1>
+  <img src="https://cdn-icons-png.flaticon.com/512/135/135620.png" alt="chimie bucatarie" class="kitchen-bg">
+
+  <div id="game"></div>
+  <div id="result"></div>
+
+
+<a href="Maillard.html" class="side-button">Despre Reactia Maillard!</a>
+
+<a href="Aciditate.html" class="right-button">Despre Aciditate si Ph!</a>
+<a href="Emulsii.html" class="sus-button">Despre Emulsii si Maioneza!</a>
+<a href="Pigmenti.html" class="jos-button">Despre Pigmenti naturali in alimente!</a>
+
+
+
+  <div class="facts-section">
+    <h2><a href="despre.html"><u style="color: black;">🔎 Știai că...?</h2></u></a>
+    <button class="fact-button" onclick="showFact(0)">???</button>
+    <button class="fact-button" onclick="showFact(1)">???</button>
+    <button class="fact-button" onclick="showFact(2)">???</button>
+    <button class="fact-button" onclick="showFact(3)">???</button>
+	 <button class="fact-button" onclick="showFact(4)">???</button>
+  <button class="fact-button" onclick="showFact(5)">???</button>
+  <button class="fact-button" onclick="showFact(6)">???</button>
+  <button class="fact-button" onclick="showFact(7)">???</button>
+  <button class="fact-button" onclick="showFact(8)">???</button>
+  <button class="fact-button" onclick="showFact(9)">???</button>
+    <div id="factDisplay" class="fact-display"></div>
+  </div>
+
+  <script>
+    const steps = [
+      {
+        question: "Ce substanță face ca prăjiturile să crească la cuptor?",
+        options: ["Sare", "Bicarbonat de sodiu", "Oțet", "Zahăr"],
+        correct: 1,
+        feedback: ["Nu sarea, ci o bază care eliberează CO2!", "Corect! Bicarbonatul produce dioxid de carbon care face aluatul pufos.", "Oțetul e acid, dar nu direct responsabil pentru creștere!", "Zahărul îndulcește, nu ajută la creștere!"]
+      },
+      {
+        question: "Ce se întâmplă chimic când fierbi un ou?",
+        options: ["Se dizolvă proteinele", "Se oxidează gălbenușul", "Se coagulează proteinele", "Se evaporă apa complet"],
+        correct: 2,
+        feedback: ["Proteinele nu se dizolvă, ci se întăresc.", "Oxidarea nu este principalul proces aici.", "Corect! Proteinele coagulează și devin solide.", "Apa nu se evaporă complet din ou."]
+      },
+      {
+        question: "De ce devine merele maro după ce le tai",
+        options: ["Reacție cu zahărul", "Reacție de fermentare", "Oxidare enzimatică", "Reacție cu dioxidul de carbon"],
+        correct: 2,
+        feedback: ["Zahărul nu e implicat în această culoare.", "Fermentarea e alt proces.", "Exact! Este oxidare enzimatică.", "CO2 nu are rol aici."]
+      },
+      {
+        question: "Ce este o emulsie?",
+        options: ["Amestec de două lichide ce nu se combină natural", "Soluție solidă", "Gaz dizolvat în apă", "Zahăr în apă"],
+        correct: 0,
+        feedback: ["Corect! Ulei și apă, de exemplu.", "O emulsie nu este o soluție solidă.", "Gazul în apă nu e emulsie.", "Zahărul se dizolvă, nu formează emulsii."]
+      },
+      {
+        question: "Ce se întâmplă când adaugi lămâie în ceaiul negru?",
+        options: ["Se dizolvă zahărul", "Ceaiul devine mai dulce", "Culoarea se deschide", "Devine amar"],
+        correct: 2,
+        feedback: ["Zahărul nu are legătură aici.", "Lămâia e acră, nu dulce!", "Corect! Acidul schimbă culoarea pigmenților.", "Amăreala nu e principalul efect."]
+      },
+      {
+        question: "Ce rol are sarea în fierberea apei?",
+        options: ["Reduce punctul de fierbere", "Crește punctul de fierbere", "Nu are niciun efect", "Face apa mai rece"],
+        correct: 1,
+        feedback: ["Sarea crește temperatura la care fierbe apa.", "Corect!", "Are un efect clar asupra temperaturii.", "Sarea nu răcește apa!"]
+      },
+      {
+        question: "Ce reacție se produce când amesteci oțet cu bicarbonat?",
+        options: ["Neutralizare cu eliberare de gaz", "Topire", "Cristalizare", "Emulsie"] ,
+        correct: 0,
+        feedback: ["Exact! Se eliberează CO2!", "Nu se topește nimic.", "Nu apar cristale aici.", "Nu e vorba de emulsie."]
+      },
+      {
+        question: "Ce face ca legumele să-și piardă culoarea la fiert?",
+        options: ["Evaporarea apei", "Oxidarea pigmenților", "Reacția cu sare", "Pierderea vitaminelor"],
+        correct: 1,
+        feedback: ["Apa se evaporă, dar nu schimbă culoarea direct.", "Corect! Pigmenții se oxidează.", "Sarea nu decolorează legumele.", "Nu doar vitaminele sunt implicate."]
+      },
+      {
+        question: "Ce tip de reacție este caramelizarea?",
+        options: ["Reacție de oxidare", "Descompunere termică", "Neutralizare", "Fermentație"] ,
+        correct: 1,
+        feedback: ["Oxidarea nu definește caramelizarea.", "Corect! Zaharurile se descompun la căldură.", "Nu e o reacție acid-bază.", "Fermentarea este alt proces."]
+      },
+      {
+        question: "Ce face oțetul când este adăugat în laptele cald?",
+        options: ["Îl îndulcește", "Îl colorează", "Îl face să se coaguleze", "Îl face acid"] ,
+        correct: 2,
+        feedback: ["Oțetul este acru, nu dulce.", "Nu colorează semnificativ.", "Corect! Se formează cașul.", "Laptele devine acid, dar efectul principal este coagularea."]
+      },
+	 {
+    question: "Ce se întâmplă chimic când bați albușurile de ou în spumă?",
+    options: ["Emulsie", "Denaturare proteică", "Dizolvare", "Coagulare"],
+    correct: 1,
+    feedback: ["Emulsia e pentru amestecuri de ulei și apă!", "Corect! Proteinele se desfac și stabilizează spuma.", "Nu e vorba de dizolvare.", "Coagularea apare la căldură, nu prin aerare."]
+  },
+  {
+    question: "De ce devine usturoiul verde sau albastru uneori în murături?",
+    options: ["E stricat", "Reacție cu acidul și sulful", "A fost congelat", "Are aditivi"],
+    correct: 1,
+    feedback: ["Nu e stricat!", "Corect! Acidul și sulful formează pigmenți colorați în contact cu enzimele din usturoi.", "Congelarea schimbă textura, nu culoarea.", "E un proces natural, nu de la aditivi."]
+  },
+  {
+    question: "Ce face uleiul să nu se amestece cu apa?",
+    options: ["Densitate", "Lipsa ionilor", "Polaritate diferită", "Greutate moleculară"],
+    correct: 2,
+    feedback: ["Densitatea explică poziția, nu amestecarea.", "Ionii nu sunt relevanți aici.", "Corect! Apa e polară, uleiul e apolar – nu se atrag.", "Greutatea nu e motivul principal."]
+  },
+  {
+    question: "De ce se adaugă oțet în apă când fierbem ouă?",
+    options: ["Pentru gust", "Pentru a coace mai repede", "Pentru a coagula albușul în caz de crăpătură", "Pentru culoare"],
+    correct: 2,
+    feedback: ["Nu e pentru gust!", "Timpul de fierbere nu se schimbă semnificativ.", "Corect! Acidul ajută la coagularea rapidă a proteinelor în apă.", "Culoarea nu e afectată de oțet."]
+  },
+  {
+    question: "Ce contribuie la rumenirea pâinii în cuptor?",
+    options: ["Topirea zaharurilor", "Reacția Maillard și caramelizarea", "Evaporarea apei", "Sărurile din făină"],
+    correct: 1,
+    feedback: ["Nu doar topire, ci reacții chimice!", "Corect! Ambele reacții contribuie la culoare și aromă.", "Evaporarea ajută la crustă, dar nu produce culoare.", "Sărurile nu au rol semnificativ în rumenire."]
+  },
+  {
+    question: "De ce este important pH-ul în gemuri și dulcețuri?",
+    options: ["Influențează culoarea", "Ajută la gelifiere", "Reduce fermentația", "Toate cele de mai sus"],
+    correct: 3,
+    feedback: ["Doar culoarea? Mai e ceva!", "Da, dar nu e singurul efect.", "Și acesta e adevărat!", "Corect! pH-ul scăzut influențează mai multe proprietăți."]
+  },
+  {
+    question: "Ce reacție are loc când lăsăm laptele să se acrească?",
+    options: ["Fermentație lactică", "Oxidare", "Neutralizare", "Emulsionare"],
+    correct: 0,
+    feedback: ["Corect! Bacteriile transformă lactoza în acid lactic.", "Oxidarea nu e procesul cheie aici.", "Nu e o reacție între acid și bază.", "Emulsia nu explică fermentația."]
+  },
+  {
+    question: "De ce untul devine maro dacă îl încălzim prea mult?",
+    options: ["Apa se evaporă", "Reacție Maillard între proteinele din zer", "Zahărul se caramelizează", "Uleiurile se oxidează"],
+    correct: 1,
+    feedback: ["E parțial corect, dar nu e motivul principal.", "Corect! Zerul conține proteine care reacționează termic.", "Untul nu conține mult zahăr.", "Oxidarea apare mai târziu, la ardere."]
+  },
+  {
+    question: "Cum oprește sarea formarea gheții în înghețată artizanală?",
+    options: ["Crește temperatura", "Reduce tensiunea superficială", "Scade punctul de congelare", "Diluează laptele"],
+    correct: 2,
+    feedback: ["Temperatura scade, nu crește!", "Tensiunea superficială nu e implicată aici.", "Corect! Sarea face ca apa să înghețe mai greu, rezultând o textură mai fină.", "Diluația nu are acest efect."]
+  },
+  {
+    question: "Ce se întâmplă cu amidonul din făină la coacere?",
+    options: ["Rămâne neschimbat", "Se descompune în zaharuri", "Gelatinizează și dă structură", "Se dizolvă în grăsime"],
+    correct: 2,
+    feedback: ["Nu, căldura îl modifică!", "Parțial, dar e mai complex.", "Corect! Amidonul absoarbe apă și se umflă, dând volum.", "Nu se dizolvă în grăsime."]
+  }
+    ];
+
+    let current = 0;
+    let score = 0;
+    const gameDiv = document.getElementById("game");
+    const resultDiv = document.getElementById("result");
+    const factDisplay = document.getElementById("factDisplay");
+
+    const facts = [
+      "🍞 Știai că drojdia produce CO2 care face pâinea să crească?",
+      "🧼 Săpunul este rezultatul reacției chimice dintre o grăsime și o bază (saponificare).",
+      "🥚 Proteinele din ou coagulează la temperaturi mari, motiv pentru care ouăle devin tari când sunt fierte.",
+      "🍎 Merele oxidează pentru că enzimele reacționează cu oxigenul din aer.",
+	"🧀 Brânza apare din coagularea laptelui cu cheag.",
+  "🌶️ Ardeiul iute conține capsaicină – un compus chimic.",
+  "🍯 Mierea are proprietăți antibacteriene naturale.",
+  "🍷 Vinul se obține prin fermentația zaharurilor din struguri.",
+  "🥒 Castraveții în oțet se păstrează prin acidifiere.",
+  "🥖 Reacția Maillard dă gustul crocant pâinii coapte."
+    ];
+
+    function showStep() {
+     const step = steps[current];
+  gameDiv.innerHTML = `
+    <div class="question">
+      <h3>${step.question}</h3>
+      ${step.options.map((opt, i) => `<button onclick="answer(${i})">${opt}</button>`).join("")}
+    </div>
+  `;
+}
+
+    function answer(choice) {
+      const step = steps[current];
+      const isCorrect = choice === step.correct;
+      if (isCorrect) {
+        score++;
+      }
+
+      gameDiv.innerHTML += `<p><strong>Răspuns:</strong> ${step.feedback[choice]}</p>`;
+      current++;
+
+      if (current < steps.length) {
+        setTimeout(showStep, 2500);
+      } else {
+        setTimeout(() => {
+          gameDiv.innerHTML = "";
+          resultDiv.innerHTML = `<strong>Ai terminat jocul!</strong><br><span class='score-animation'>Scor final: ${score} din ${steps.length}</span>`;
+        }, 2500);
+      }
+    }
+
+    function showFact(index) {
+      factDisplay.style.display = "block";
+      factDisplay.innerText = facts[index];
+    }
+
+    showStep();
+  </script>
+
+</body>
+</html>
